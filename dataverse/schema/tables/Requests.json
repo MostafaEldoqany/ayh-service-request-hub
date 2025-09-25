@@ -1,0 +1,194 @@
+{
+  "logicalName": "ayh_request",
+  "displayName": "Service Request",
+  "description": "Hospital service requests with approval workflows",
+  "primaryNameAttribute": "ayh_requestnumber",
+  "ownershipType": "Organization",
+  "auditEnabled": true,
+  "attributes": [
+    {
+      "logicalName": "ayh_requestid",
+      "displayName": "Request ID",
+      "type": "Uniqueidentifier",
+      "isPrimaryKey": true,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_requestnumber",
+      "displayName": "Request Number",
+      "type": "String",
+      "format": "Text",
+      "maxLength": 20,
+      "isPrimaryName": true,
+      "isRequired": true,
+      "autoNumberFormat": "REQ-{SEQNUM:0000000}",
+      "description": "Auto-generated request number"
+    },
+    {
+      "logicalName": "ayh_title",
+      "displayName": "Title",
+      "type": "String",
+      "maxLength": 200,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_description",
+      "displayName": "Description",
+      "type": "Memo",
+      "maxLength": 4000,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_category",
+      "displayName": "Category",
+      "type": "Picklist",
+      "isRequired": true,
+      "optionSet": "ayh_category"
+    },
+    {
+      "logicalName": "ayh_subcategory",
+      "displayName": "Subcategory",
+      "type": "String",
+      "maxLength": 100
+    },
+    {
+      "logicalName": "ayh_priority",
+      "displayName": "Priority",
+      "type": "Picklist",
+      "isRequired": true,
+      "optionSet": "ayh_priority"
+    },
+    {
+      "logicalName": "ayh_channel",
+      "displayName": "Channel",
+      "type": "Picklist",
+      "isRequired": true,
+      "optionSet": "ayh_channel"
+    },
+    {
+      "logicalName": "ayh_status",
+      "displayName": "Status",
+      "type": "Picklist",
+      "isRequired": true,
+      "optionSet": "ayh_status"
+    },
+    {
+      "logicalName": "ayh_slapolicyid",
+      "displayName": "SLA Policy",
+      "type": "Lookup",
+      "target": "ayh_slapolicy",
+      "relationship": "ayh_slapolicy_requests"
+    },
+    {
+      "logicalName": "ayh_requestedby",
+      "displayName": "Requested By",
+      "type": "Lookup",
+      "target": "systemuser",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_requestingdepartmentid",
+      "displayName": "Requesting Department",
+      "type": "Lookup",
+      "target": "ayh_department",
+      "isRequired": true,
+      "relationship": "ayh_department_requesting"
+    },
+    {
+      "logicalName": "ayh_owningdepartmentid",
+      "displayName": "Owning Department",
+      "type": "Lookup",
+      "target": "ayh_department",
+      "isRequired": true,
+      "relationship": "ayh_department_owning"
+    },
+    {
+      "logicalName": "ayh_assignedto",
+      "displayName": "Assigned To",
+      "type": "Lookup",
+      "target": "systemuser"
+    },
+    {
+      "logicalName": "ayh_dueby",
+      "displayName": "Due By",
+      "type": "DateTime",
+      "format": "DateAndTime"
+    },
+    {
+      "logicalName": "ayh_firstresponseat",
+      "displayName": "First Response At",
+      "type": "DateTime",
+      "format": "DateAndTime"
+    },
+    {
+      "logicalName": "ayh_firstresponsetargetat",
+      "displayName": "First Response Target At",
+      "type": "DateTime",
+      "format": "DateAndTime"
+    },
+    {
+      "logicalName": "ayh_resolvedat",
+      "displayName": "Resolved At",
+      "type": "DateTime",
+      "format": "DateAndTime"
+    },
+    {
+      "logicalName": "ayh_satisfactionscore",
+      "displayName": "Satisfaction Score",
+      "type": "Integer",
+      "minValue": 1,
+      "maxValue": 5
+    },
+    {
+      "logicalName": "ayh_sourcesystemid",
+      "displayName": "Source System ID",
+      "type": "String",
+      "maxLength": 100
+    },
+    {
+      "logicalName": "ayh_requiresdirectorapproval",
+      "displayName": "Requires Director Approval",
+      "type": "TwoOptions",
+      "defaultValue": false,
+      "description": "High-cost or critical requests requiring hospital operations director approval"
+    },
+    {
+      "logicalName": "ayh_directorapprovalstatus",
+      "displayName": "Director Approval Status",
+      "type": "Picklist",
+      "optionSet": "ayh_approvalstatus"
+    },
+    {
+      "logicalName": "ayh_directorapprovedby",
+      "displayName": "Director Approved By",
+      "type": "Lookup",
+      "target": "systemuser"
+    },
+    {
+      "logicalName": "ayh_directorapprovaldate",
+      "displayName": "Director Approval Date",
+      "type": "DateTime",
+      "format": "DateAndTime"
+    },
+    {
+      "logicalName": "ayh_directorapprovalcomments",
+      "displayName": "Director Approval Comments",
+      "type": "Memo",
+      "maxLength": 2000
+    },
+    {
+      "logicalName": "ayh_estimatedcost",
+      "displayName": "Estimated Cost",
+      "type": "Money",
+      "precision": 2,
+      "description": "Estimated cost for approval workflow triggers"
+    },
+    {
+      "logicalName": "ayh_businessjustification",
+      "displayName": "Business Justification",
+      "type": "Memo",
+      "maxLength": 2000,
+      "description": "Required for director approval requests"
+    }
+  ]
+}

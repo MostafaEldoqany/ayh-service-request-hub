@@ -1,0 +1,70 @@
+{
+  "logicalName": "ayh_slapolicy",
+  "displayName": "SLA Policy",
+  "description": "Service Level Agreement policies with response and resolution targets",
+  "primaryNameAttribute": "ayh_name",
+  "ownershipType": "Organization",
+  "attributes": [
+    {
+      "logicalName": "ayh_slapolicyid",
+      "displayName": "SLA Policy ID",
+      "type": "Uniqueidentifier",
+      "isPrimaryKey": true,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_name",
+      "displayName": "Policy Name",
+      "type": "String",
+      "maxLength": 100,
+      "isRequired": true,
+      "isPrimaryName": true
+    },
+    {
+      "logicalName": "ayh_firstresponsetargetmins",
+      "displayName": "First Response Target (Minutes)",
+      "type": "Integer",
+      "isRequired": true,
+      "minValue": 1,
+      "maxValue": 10080,
+      "defaultValue": 60
+    },
+    {
+      "logicalName": "ayh_resolutiontargetmins",
+      "displayName": "Resolution Target (Minutes)",
+      "type": "Integer",
+      "isRequired": true,
+      "minValue": 1,
+      "maxValue": 43200,
+      "defaultValue": 1440
+    },
+    {
+      "logicalName": "ayh_businesshours",
+      "displayName": "Business Hours",
+      "type": "Picklist",
+      "isRequired": true,
+      "optionSet": "ayh_businesshours",
+      "defaultValue": 100000001
+    },
+    {
+      "logicalName": "ayh_escalationminutes",
+      "displayName": "Escalation Minutes",
+      "type": "Integer",
+      "minValue": 15,
+      "maxValue": 1440,
+      "defaultValue": 120
+    },
+    {
+      "logicalName": "ayh_isactive",
+      "displayName": "Is Active",
+      "type": "TwoOptions",
+      "defaultValue": true
+    },
+    {
+      "logicalName": "ayh_description",
+      "displayName": "Description",
+      "type": "Memo",
+      "maxLength": 2000
+    }
+  ]
+}

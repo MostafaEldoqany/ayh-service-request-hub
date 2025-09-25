@@ -1,0 +1,66 @@
+{
+  "logicalName": "ayh_statushistory",
+  "displayName": "Status History",
+  "description": "Audit trail of request status changes",
+  "primaryNameAttribute": "ayh_name",
+  "ownershipType": "Organization",
+  "attributes": [
+    {
+      "logicalName": "ayh_statushistoryid",
+      "displayName": "Status History ID",
+      "type": "Uniqueidentifier",
+      "isPrimaryKey": true,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_name",
+      "displayName": "Name",
+      "type": "String",
+      "maxLength": 100,
+      "isPrimaryName": true,
+      "calculated": true,
+      "formula": "ayh_requestid.ayh_requestnumber + \" - \" + ayh_newstatus"
+    },
+    {
+      "logicalName": "ayh_requestid",
+      "displayName": "Request",
+      "type": "Lookup",
+      "target": "ayh_request",
+      "isRequired": true,
+      "relationship": "ayh_request_statushistory"
+    },
+    {
+      "logicalName": "ayh_oldstatus",
+      "displayName": "Old Status",
+      "type": "Picklist",
+      "optionSet": "ayh_status"
+    },
+    {
+      "logicalName": "ayh_newstatus",
+      "displayName": "New Status",
+      "type": "Picklist",
+      "optionSet": "ayh_status",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_changedby",
+      "displayName": "Changed By",
+      "type": "Lookup",
+      "target": "systemuser",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_changedat",
+      "displayName": "Changed At",
+      "type": "DateTime",
+      "format": "DateAndTime",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_reason",
+      "displayName": "Reason",
+      "type": "String",
+      "maxLength": 500
+    }
+  ]
+}

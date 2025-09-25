@@ -1,0 +1,62 @@
+{
+  "logicalName": "ayh_comment",
+  "displayName": "Request Comment",
+  "description": "Comments and updates on service requests",
+  "primaryNameAttribute": "ayh_name",
+  "ownershipType": "Organization",
+  "auditEnabled": true,
+  "attributes": [
+    {
+      "logicalName": "ayh_commentid",
+      "displayName": "Comment ID",
+      "type": "Uniqueidentifier",
+      "isPrimaryKey": true,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_name",
+      "displayName": "Name",
+      "type": "String",
+      "maxLength": 100,
+      "isPrimaryName": true,
+      "calculated": true,
+      "formula": "\"Comment on \" + ayh_requestid.ayh_requestnumber"
+    },
+    {
+      "logicalName": "ayh_requestid",
+      "displayName": "Request",
+      "type": "Lookup",
+      "target": "ayh_request",
+      "isRequired": true,
+      "relationship": "ayh_request_comments"
+    },
+    {
+      "logicalName": "ayh_commentby",
+      "displayName": "Comment By",
+      "type": "Lookup",
+      "target": "systemuser",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_commenttext",
+      "displayName": "Comment Text",
+      "type": "Memo",
+      "maxLength": 4000,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_isprivate",
+      "displayName": "Is Private",
+      "type": "TwoOptions",
+      "defaultValue": false,
+      "description": "Private comments visible only to department agents and above"
+    },
+    {
+      "logicalName": "ayh_commenttype",
+      "displayName": "Comment Type",
+      "type": "Picklist",
+      "optionSet": "ayh_commenttype",
+      "defaultValue": 100000000
+    }
+  ]
+}

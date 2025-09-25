@@ -1,0 +1,9 @@
+ayh_name,ayh_firstresponsetargetmins,ayh_resolutiontargetmins,ayh_businesshours,ayh_escalationminutes,ayh_isactive,ayh_description
+IT Standard,60,1440,24x7,120,true,Standard IT support policy - 24x7 coverage with 1 hour first response
+Maintenance Standard,60,2880,Weekdays_8_17,240,true,Maintenance policy - weekday coverage with 2 day resolution target
+HR Standard,240,4320,Weekdays_8_17,480,true,Human Resources policy - 4 hour first response during business hours
+Critical Infrastructure,15,240,24x7,30,true,Critical systems requiring immediate response
+Housekeeping Standard,120,1440,24x7,360,true,Environmental services - 2 hour first response
+Transport Standard,30,120,24x7,60,true,Patient transport - 30 minute response for urgent requests
+Clinical Engineering Critical,30,480,24x7,60,true,Medical equipment requiring rapid response
+Security Emergency,5,60,24x7,15,true,Security incidents requiring immediate response

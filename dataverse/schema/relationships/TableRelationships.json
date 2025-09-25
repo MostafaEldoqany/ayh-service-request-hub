@@ -1,0 +1,116 @@
+{
+  "relationships": [
+    {
+      "name": "ayh_slapolicy_requests",
+      "type": "OneToMany",
+      "referencingEntity": "ayh_request",
+      "referencingAttribute": "ayh_slapolicyid",
+      "referencedEntity": "ayh_slapolicy",
+      "referencedAttribute": "ayh_slapolicyid",
+      "cascadeConfiguration": {
+        "assign": "NoCascade",
+        "delete": "RemoveLink",
+        "merge": "NoCascade",
+        "reparent": "NoCascade",
+        "share": "NoCascade",
+        "unshare": "NoCascade"
+      }
+    },
+    {
+      "name": "ayh_department_requesting",
+      "type": "OneToMany",
+      "referencingEntity": "ayh_request",
+      "referencingAttribute": "ayh_requestingdepartmentid",
+      "referencedEntity": "ayh_department",
+      "referencedAttribute": "ayh_departmentid",
+      "cascadeConfiguration": {
+        "assign": "NoCascade",
+        "delete": "RemoveLink",
+        "merge": "NoCascade",
+        "reparent": "NoCascade",
+        "share": "NoCascade",
+        "unshare": "NoCascade"
+      }
+    },
+    {
+      "name": "ayh_department_owning",
+      "type": "OneToMany",
+      "referencingEntity": "ayh_request",
+      "referencingAttribute": "ayh_owningdepartmentid",
+      "referencedEntity": "ayh_department",
+      "referencedAttribute": "ayh_departmentid",
+      "cascadeConfiguration": {
+        "assign": "NoCascade",
+        "delete": "RemoveLink",
+        "merge": "NoCascade",
+        "reparent": "NoCascade",
+        "share": "NoCascade",
+        "unshare": "NoCascade"
+      }
+    },
+    {
+      "name": "ayh_slapolicy_department_default",
+      "type": "OneToMany",
+      "referencingEntity": "ayh_department",
+      "referencingAttribute": "ayh_defaultslapolicyid",
+      "referencedEntity": "ayh_slapolicy",
+      "referencedAttribute": "ayh_slapolicyid",
+      "cascadeConfiguration": {
+        "assign": "NoCascade",
+        "delete": "RemoveLink",
+        "merge": "NoCascade",
+        "reparent": "NoCascade",
+        "share": "NoCascade",
+        "unshare": "NoCascade"
+      }
+    },
+    {
+      "name": "ayh_request_comments",
+      "type": "OneToMany",
+      "referencingEntity": "ayh_comment",
+      "referencingAttribute": "ayh_requestid",
+      "referencedEntity": "ayh_request",
+      "referencedAttribute": "ayh_requestid",
+      "cascadeConfiguration": {
+        "assign": "Cascade",
+        "delete": "Cascade",
+        "merge": "NoCascade",
+        "reparent": "Cascade",
+        "share": "Cascade",
+        "unshare": "Cascade"
+      }
+    },
+    {
+      "name": "ayh_request_statushistory",
+      "type": "OneToMany",
+      "referencingEntity": "ayh_statushistory",
+      "referencingAttribute": "ayh_requestid",
+      "referencedEntity": "ayh_request",
+      "referencedAttribute": "ayh_requestid",
+      "cascadeConfiguration": {
+        "assign": "Cascade",
+        "delete": "Cascade",
+        "merge": "NoCascade",
+        "reparent": "Cascade",
+        "share": "Cascade",
+        "unshare": "Cascade"
+      }
+    },
+    {
+      "name": "ayh_request_assignments",
+      "type": "OneToMany",
+      "referencingEntity": "ayh_requestassignment",
+      "referencingAttribute": "ayh_requestid",
+      "referencedEntity": "ayh_request",
+      "referencedAttribute": "ayh_requestid",
+      "cascadeConfiguration": {
+        "assign": "Cascade",
+        "delete": "Cascade",
+        "merge": "NoCascade",
+        "reparent": "Cascade",
+        "share": "Cascade",
+        "unshare": "Cascade"
+      }
+    }
+  ]
+}

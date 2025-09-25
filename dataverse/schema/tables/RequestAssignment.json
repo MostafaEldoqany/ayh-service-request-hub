@@ -1,0 +1,73 @@
+{
+  "logicalName": "ayh_requestassignment",
+  "displayName": "Request Assignment",
+  "description": "Assignment history and tracking for service requests",
+  "primaryNameAttribute": "ayh_name",
+  "ownershipType": "Organization",
+  "attributes": [
+    {
+      "logicalName": "ayh_requestassignmentid",
+      "displayName": "Request Assignment ID",
+      "type": "Uniqueidentifier",
+      "isPrimaryKey": true,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_name",
+      "displayName": "Name",
+      "type": "String",
+      "maxLength": 200,
+      "isPrimaryName": true,
+      "calculated": true,
+      "formula": "ayh_requestid.ayh_requestnumber + \" assigned to \" + ayh_assignedto.fullname"
+    },
+    {
+      "logicalName": "ayh_requestid",
+      "displayName": "Request",
+      "type": "Lookup",
+      "target": "ayh_request",
+      "isRequired": true,
+      "relationship": "ayh_request_assignments"
+    },
+    {
+      "logicalName": "ayh_assignedto",
+      "displayName": "Assigned To",
+      "type": "Lookup",
+      "target": "systemuser",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_assignedby",
+      "displayName": "Assigned By",
+      "type": "Lookup",
+      "target": "systemuser",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_assignedat",
+      "displayName": "Assigned At",
+      "type": "DateTime",
+      "format": "DateAndTime",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_isactive",
+      "displayName": "Is Active",
+      "type": "TwoOptions",
+      "defaultValue": true,
+      "description": "Current active assignment"
+    },
+    {
+      "logicalName": "ayh_unassignedat",
+      "displayName": "Unassigned At",
+      "type": "DateTime",
+      "format": "DateAndTime"
+    },
+    {
+      "logicalName": "ayh_unassignedby",
+      "displayName": "Unassigned By",
+      "type": "Lookup",
+      "target": "systemuser"
+    }
+  ]
+}

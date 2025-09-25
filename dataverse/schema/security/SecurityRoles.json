@@ -1,0 +1,265 @@
+{
+  "securityRoles": [
+    {
+      "name": "AYH Staff",
+      "description": "Hospital staff who can submit requests and view their own submissions",
+      "privileges": {
+        "ayh_request": {
+          "create": "User",
+          "read": "User",
+          "write": "User",
+          "delete": "None",
+          "append": "User",
+          "appendTo": "None",
+          "share": "None",
+          "assign": "None"
+        },
+        "ayh_comment": {
+          "create": "User",
+          "read": "User",
+          "write": "User",
+          "delete": "User",
+          "append": "User",
+          "appendTo": "None",
+          "share": "None",
+          "assign": "None"
+        },
+        "ayh_department": {
+          "create": "None",
+          "read": "Organization",
+          "write": "None",
+          "delete": "None"
+        },
+        "ayh_slapolicy": {
+          "create": "None",
+          "read": "Organization",
+          "write": "None",
+          "delete": "None"
+        },
+        "ayh_statushistory": {
+          "create": "None",
+          "read": "User",
+          "write": "None",
+          "delete": "None"
+        },
+        "ayh_requestassignment": {
+          "create": "None",
+          "read": "User",
+          "write": "None",
+          "delete": "None"
+        }
+      }
+    },
+    {
+      "name": "AYH Department Agent",
+      "description": "Department agents who can manage requests assigned to their department",
+      "privileges": {
+        "ayh_request": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "None",
+          "append": "Organization",
+          "appendTo": "Organization",
+          "share": "Organization",
+          "assign": "Organization"
+        },
+        "ayh_comment": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization",
+          "append": "Organization",
+          "appendTo": "Organization",
+          "share": "Organization",
+          "assign": "Organization"
+        },
+        "ayh_department": {
+          "create": "None",
+          "read": "Organization",
+          "write": "None",
+          "delete": "None"
+        },
+        "ayh_slapolicy": {
+          "create": "None",
+          "read": "Organization",
+          "write": "None",
+          "delete": "None"
+        },
+        "ayh_statushistory": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "None",
+          "delete": "None"
+        },
+        "ayh_requestassignment": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "None"
+        }
+      },
+      "conditions": {
+        "ayh_request": "owningdepartmentid = user.department OR assignedto = user.id",
+        "ayh_comment": "requestid.owningdepartmentid = user.department OR requestid.assignedto = user.id"
+      }
+    },
+    {
+      "name": "AYH Department Manager",
+      "description": "Department managers with agent privileges plus reassignment and SLA override capabilities",
+      "inheritsFrom": "AYH Department Agent",
+      "additionalPrivileges": {
+        "ayh_request": {
+          "assign": "Organization",
+          "share": "Organization"
+        },
+        "ayh_slapolicy": {
+          "write": "Organization"
+        }
+      },
+      "specialCapabilities": [
+        "Can reassign requests between agents",
+        "Can override SLA policies",
+        "Can escalate to Hospital Operations Director",
+        "Can approve requests up to department budget limit"
+      ]
+    },
+    {
+      "name": "AYH Hospital Operations Director",
+      "description": "Hospital Operations Director with approval authority for high-cost and critical requests",
+      "privileges": {
+        "ayh_request": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization",
+          "append": "Organization",
+          "appendTo": "Organization",
+          "share": "Organization",
+          "assign": "Organization"
+        },
+        "ayh_comment": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization",
+          "append": "Organization",
+          "appendTo": "Organization",
+          "share": "Organization",
+          "assign": "Organization"
+        },
+        "ayh_department": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "None"
+        },
+        "ayh_slapolicy": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization"
+        },
+        "ayh_statushistory": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "None"
+        },
+        "ayh_requestassignment": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization"
+        }
+      },
+      "specialCapabilities": [
+        "Can approve/reject requests requiring director approval",
+        "Can view all requests across all departments",
+        "Can modify SLA policies and business rules",
+        "Can reassign requests to any department or agent",
+        "Can access director approval dashboard and analytics",
+        "Receives escalation notifications for overdue high-priority requests"
+      ]
+    },
+    {
+      "name": "AYH Admin",
+      "description": "System administrators with full access to all components",
+      "privileges": {
+        "ayh_request": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization",
+          "append": "Organization",
+          "appendTo": "Organization",
+          "share": "Organization",
+          "assign": "Organization"
+        },
+        "ayh_comment": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization",
+          "append": "Organization",
+          "appendTo": "Organization",
+          "share": "Organization",
+          "assign": "Organization"
+        },
+        "ayh_department": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization"
+        },
+        "ayh_slapolicy": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization"
+        },
+        "ayh_statushistory": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization"
+        },
+        "ayh_requestassignment": {
+          "create": "Organization",
+          "read": "Organization",
+          "write": "Organization",
+          "delete": "Organization"
+        }
+      },
+      "specialCapabilities": [
+        "Full administrative access to all solution components",
+        "Can manage user security roles and permissions",
+        "Can configure system settings and environment variables",
+        "Can access all reporting and analytics",
+        "Can manage solution deployment and updates"
+      ]
+    }
+  ],
+  "aadGroupMapping": {
+    "AYH Staff": "${AAD_GROUP_STAFF_ID}",
+    "AYH Department Agent": "${AAD_GROUP_AGENT_ID}",
+    "AYH Department Manager": "${AAD_GROUP_MANAGER_ID}",
+    "AYH Hospital Operations Director": "${AAD_GROUP_DIRECTOR_ID}",
+    "AYH Admin": "${AAD_GROUP_ADMIN_ID}"
+  },
+  "approvalWorkflow": {
+    "triggers": {
+      "estimatedCost": "> $5000",
+      "category": ["Clinical Support", "Maintenance"],
+      "priority": "Critical",
+      "customFlag": "ayh_requiresdirectorapproval = true"
+    },
+    "approvalFlow": [
+      "Request submitted → Status: New",
+      "If triggers approval → Status: Pending Director Approval",
+      "Director reviews → Status: Director Approved/Rejected",
+      "If approved → Status: Triaged → In Progress",
+      "If rejected → Status: Director Rejected (closed)"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+ayh_title,ayh_description,ayh_category,ayh_priority,ayh_channel,ayh_status,ayh_estimatedcost,ayh_requiresdirectorapproval,ayh_businessjustification
+Replace MRI cooling system,Main MRI unit cooling system failure requiring immediate replacement,Clinical Support,Critical,Phone,Pending Director Approval,75000,true,Critical diagnostic equipment failure affecting patient care capacity. Estimated 2-week downtime without immediate repair.
+Password reset for Dr. Smith,User unable to access EMR system,IT,Normal,App,New,0,false,
+Elevator maintenance - Floor 3,Scheduled quarterly maintenance for patient elevator,Maintenance,Normal,Email,Triaged,500,false,
+New nurse orientation materials,Need orientation packets for 5 new ICU nurses starting Monday,HR,High,App,In Progress,200,false,
+OR 3 deep cleaning,Post-surgical deep cleaning required before next case,Housekeeping,High,Phone,Resolved,150,false,
+Transport wheelchair to ICU,Patient needs wheelchair transport from ER to ICU,Transport,Normal,App,Closed,0,false,
+Install new cardiac monitors,Purchase and installation of 10 new cardiac monitoring units,Clinical Support,High,Email,Pending Director Approval,125000,true,Replace aging monitors to improve patient safety and monitoring capabilities. Current units experiencing frequent false alarms.
+Network upgrade for pharmacy,Upgrade network infrastructure in pharmacy department,IT,High,App,Director Approved,15000,true,Required to support new automated dispensing system for improved medication safety and inventory management.

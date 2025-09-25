@@ -1,0 +1,9 @@
+ayh_name,ayh_code,ayh_active,ayh_costcenternumber,ayh_budgetlimit,ayh_teamsChannelId
+IT Department,IT,true,CC001,25000,${TEAMS_DEPT_CHANNEL_ID_IT}
+Maintenance,MAINT,true,CC002,50000,${TEAMS_DEPT_CHANNEL_ID_MAINT}
+Human Resources,HR,true,CC003,15000,
+Housekeeping,HOUSE,true,CC004,10000,
+Transport Services,TRANS,true,CC005,20000,
+Clinical Engineering,CENG,true,CC006,75000,
+Security,SEC,true,CC007,12000,
+Food Services,FOOD,true,CC008,30000,

@@ -1,0 +1,255 @@
+{
+  "choiceSets": [
+    {
+      "logicalName": "ayh_category",
+      "displayName": "Request Category",
+      "description": "Categories of hospital service requests",
+      "isGlobal": true,
+      "options": [
+        {
+          "value": 100000000,
+          "label": "Clinical Support",
+          "description": "Medical equipment, supplies, clinical services"
+        },
+        {
+          "value": 100000001,
+          "label": "IT",
+          "description": "Technology, software, hardware support"
+        },
+        {
+          "value": 100000002,
+          "label": "Maintenance",
+          "description": "Facilities, equipment repair and maintenance"
+        },
+        {
+          "value": 100000003,
+          "label": "HR",
+          "description": "Human resources, staffing, training"
+        },
+        {
+          "value": 100000004,
+          "label": "Supplies",
+          "description": "Medical supplies, office supplies, inventory"
+        },
+        {
+          "value": 100000005,
+          "label": "Housekeeping",
+          "description": "Cleaning, janitorial, environmental services"
+        },
+        {
+          "value": 100000006,
+          "label": "Transport",
+          "description": "Patient transport, equipment movement"
+        },
+        {
+          "value": 100000007,
+          "label": "Other",
+          "description": "Other miscellaneous requests"
+        }
+      ]
+    },
+    {
+      "logicalName": "ayh_priority",
+      "displayName": "Request Priority",
+      "description": "Priority levels for service requests",
+      "isGlobal": true,
+      "options": [
+        {
+          "value": 100000000,
+          "label": "Low",
+          "description": "Non-urgent, can be scheduled"
+        },
+        {
+          "value": 100000001,
+          "label": "Normal",
+          "description": "Standard priority request"
+        },
+        {
+          "value": 100000002,
+          "label": "High",
+          "description": "Urgent, affects patient care"
+        },
+        {
+          "value": 100000003,
+          "label": "Critical",
+          "description": "Emergency, immediate attention required"
+        }
+      ]
+    },
+    {
+      "logicalName": "ayh_channel",
+      "displayName": "Request Channel",
+      "description": "Method used to submit the request",
+      "isGlobal": true,
+      "options": [
+        {
+          "value": 100000000,
+          "label": "App",
+          "description": "Submitted via mobile/web application"
+        },
+        {
+          "value": 100000001,
+          "label": "Phone",
+          "description": "Called in to help desk"
+        },
+        {
+          "value": 100000002,
+          "label": "Email",
+          "description": "Emailed to support team"
+        },
+        {
+          "value": 100000003,
+          "label": "Walk-in",
+          "description": "In-person request at service desk"
+        }
+      ]
+    },
+    {
+      "logicalName": "ayh_status",
+      "displayName": "Request Status",
+      "description": "Current status of service request",
+      "isGlobal": true,
+      "options": [
+        {
+          "value": 100000000,
+          "label": "New",
+          "description": "Newly created request"
+        },
+        {
+          "value": 100000001,
+          "label": "Triaged",
+          "description": "Reviewed and assigned to department"
+        },
+        {
+          "value": 100000002,
+          "label": "Pending Director Approval",
+          "description": "Awaiting hospital operations director approval"
+        },
+        {
+          "value": 100000003,
+          "label": "Director Approved",
+          "description": "Approved by hospital operations director"
+        },
+        {
+          "value": 100000004,
+          "label": "Director Rejected",
+          "description": "Rejected by hospital operations director"
+        },
+        {
+          "value": 100000005,
+          "label": "In Progress",
+          "description": "Being worked on by assigned agent"
+        },
+        {
+          "value": 100000006,
+          "label": "On Hold",
+          "description": "Temporarily suspended, awaiting input"
+        },
+        {
+          "value": 100000007,
+          "label": "Resolved",
+          "description": "Work completed, awaiting confirmation"
+        },
+        {
+          "value": 100000008,
+          "label": "Rejected",
+          "description": "Request denied or cancelled"
+        },
+        {
+          "value": 100000009,
+          "label": "Closed",
+          "description": "Request completed and closed"
+        }
+      ]
+    },
+    {
+      "logicalName": "ayh_businesshours",
+      "displayName": "Business Hours",
+      "description": "Business hours policy for SLA calculations",
+      "isGlobal": true,
+      "options": [
+        {
+          "value": 100000000,
+          "label": "24x7",
+          "description": "24 hours a day, 7 days a week"
+        },
+        {
+          "value": 100000001,
+          "label": "Weekdays_8_17",
+          "description": "Weekdays 8 AM to 5 PM"
+        },
+        {
+          "value": 100000002,
+          "label": "Custom",
+          "description": "Custom business hours configuration"
+        }
+      ]
+    },
+    {
+      "logicalName": "ayh_approvalstatus",
+      "displayName": "Approval Status",
+      "description": "Hospital operations director approval status",
+      "isGlobal": true,
+      "options": [
+        {
+          "value": 100000000,
+          "label": "Pending",
+          "description": "Awaiting director review"
+        },
+        {
+          "value": 100000001,
+          "label": "Approved",
+          "description": "Director approved request"
+        },
+        {
+          "value": 100000002,
+          "label": "Rejected",
+          "description": "Director rejected request"
+        },
+        {
+          "value": 100000003,
+          "label": "Requires Additional Information",
+          "description": "Director requests more details"
+        }
+      ]
+    },
+    {
+      "logicalName": "ayh_commenttype",
+      "displayName": "Comment Type",
+      "description": "Type of comment or update",
+      "isGlobal": true,
+      "options": [
+        {
+          "value": 100000000,
+          "label": "General",
+          "description": "General comment or update"
+        },
+        {
+          "value": 100000001,
+          "label": "Status Update",
+          "description": "Status change notification"
+        },
+        {
+          "value": 100000002,
+          "label": "Assignment",
+          "description": "Assignment change"
+        },
+        {
+          "value": 100000003,
+          "label": "Customer Communication",
+          "description": "Communication with requester"
+        },
+        {
+          "value": 100000004,
+          "label": "Internal Note",
+          "description": "Internal team communication"
+        },
+        {
+          "value": 100000005,
+          "label": "Director Decision",
+          "description": "Hospital operations director decision"
+        }
+      ]
+    }
+  ]
+}

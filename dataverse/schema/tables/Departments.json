@@ -1,0 +1,71 @@
+{
+  "logicalName": "ayh_department",
+  "displayName": "Department",
+  "description": "Hospital departments with SLA policies and management hierarchy",
+  "primaryNameAttribute": "ayh_name",
+  "ownershipType": "Organization",
+  "attributes": [
+    {
+      "logicalName": "ayh_departmentid",
+      "displayName": "Department ID",
+      "type": "Uniqueidentifier",
+      "isPrimaryKey": true,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_name",
+      "displayName": "Department Name",
+      "type": "String",
+      "maxLength": 100,
+      "isRequired": true,
+      "isPrimaryName": true
+    },
+    {
+      "logicalName": "ayh_code",
+      "displayName": "Department Code",
+      "type": "String",
+      "maxLength": 10,
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_manager",
+      "displayName": "Department Manager",
+      "type": "Lookup",
+      "target": "systemuser",
+      "isRequired": true
+    },
+    {
+      "logicalName": "ayh_defaultslapolicyid",
+      "displayName": "Default SLA Policy",
+      "type": "Lookup",
+      "target": "ayh_slapolicy",
+      "relationship": "ayh_slapolicy_department_default"
+    },
+    {
+      "logicalName": "ayh_active",
+      "displayName": "Active",
+      "type": "TwoOptions",
+      "defaultValue": true
+    },
+    {
+      "logicalName": "ayh_teamsChannelId",
+      "displayName": "Teams Channel ID",
+      "type": "String",
+      "maxLength": 100,
+      "description": "Microsoft Teams channel for notifications"
+    },
+    {
+      "logicalName": "ayh_costcenternumber",
+      "displayName": "Cost Center Number",
+      "type": "String",
+      "maxLength": 20
+    },
+    {
+      "logicalName": "ayh_budgetlimit",
+      "displayName": "Budget Limit",
+      "type": "Money",
+      "precision": 2,
+      "description": "Department budget limit for auto-approval"
+    }
+  ]
+}
