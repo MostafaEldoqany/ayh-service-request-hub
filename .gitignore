@@ -1,0 +1,36 @@
+# AYH Service Request Hub - Git Ignore
+
+# Environment and Secrets
+.env
+*.secrets
+auth/
+
+# Power Platform Build Artifacts
+*.log
+temp/
+build/
+dist/
+
+# Power BI Temporary Files
+*.tmp
+~*.pbix
+*.bak
+
+# Visual Studio / VS Code
+.vscode/
+.vs/
+*.user
+*.suo
+
+# Node.js (if used for automation)
+node_modules/
+npm-debug.log*
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs
+logs/*.log
+*.log.*
