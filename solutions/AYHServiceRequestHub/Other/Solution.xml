@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.25084.176" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25084.176" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25091.00164">
+  <SolutionManifest>
+    <UniqueName>AYHServiceRequestHub</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="AYH Service Request Hub" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Hospital service request management with director approval" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>DefaultPublisherorgaf199b80</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Default Publisher for orgaf199b80" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Default publisher for this organization" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>new</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode xsi:nil="true"></AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode xsi:nil="true"></ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode xsi:nil="true"></AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode xsi:nil="true"></ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="new_ayh_comment" behavior="0" />
+      <RootComponent type="1" schemaName="new_ayh_department" behavior="0" />
+      <RootComponent type="1" schemaName="new_ayh_request" behavior="0" />
+      <RootComponent type="1" schemaName="new_ayh_requestassignment" behavior="0" />
+      <RootComponent type="1" schemaName="new_ayh_slapolicy" behavior="0" />
+      <RootComponent type="1" schemaName="new_ayh_statushistory" behavior="0" />
+      <RootComponent type="20" id="{37ebf935-5d9a-f011-bbd3-000d3a49975d}" behavior="0" />
+      <RootComponent type="20" id="{a67d829c-5b9a-f011-bbd3-000d3a49975d}" behavior="0" />
+      <RootComponent type="20" id="{cd673d41-5c9a-f011-bbd3-000d3a49975d}" behavior="0" />
+      <RootComponent type="20" id="{e99a3adc-599a-f011-bbd3-000d3a49975d}" behavior="0" />
+      <RootComponent type="62" schemaName="new_AYHServiceRequestHub" behavior="0" />
+      <RootComponent type="9" schemaName="new_ayh_approvalstatus" behavior="0" />
+      <RootComponent type="9" schemaName="new_ayh_businesshours" behavior="0" />
+      <RootComponent type="9" schemaName="new_ayh_category" behavior="0" />
+      <RootComponent type="9" schemaName="new_ayh_commenttype" behavior="0" />
+      <RootComponent type="9" schemaName="new_ayh_priority" behavior="0" />
+      <RootComponent type="9" schemaName="new_ayh_status" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="9" schemaName="msdyn_flow_approval_priority" displayName="Priority" solution="msdyn_FlowApprovalsCore (2.2.8.0)">
+          <package appName="msdyn_FlowApprovals" version="2.2.8.0">msdyn_FlowApprovals (2.2.8.0)</package>
+        </Required>
+        <Dependent type="2" schemaName="new_ayh_priority" displayName="Priority" parentSchemaName="new_ayh_request" parentDisplayName="Service Request" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>
