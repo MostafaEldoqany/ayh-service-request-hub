@@ -1,0 +1,564 @@
+{
+  "appName": "AYH Service Request Hub",
+  "appDescription": "Hospital service request management with Hospital Operations Director approval workflow for requests >$5,000",
+  "version": "1.0.0",
+  "publisher": "AYH Healthcare",
+  "screens": {
+    "HomeScreen": {
+      "title": "AYH Service Request Hub",
+      "description": "Main dashboard with role-based navigation",
+      "components": [
+        {
+          "type": "Header",
+          "text": "AYH Healthcare - Service Request Hub",
+          "logo": "AYH_Logo",
+          "userInfo": "User().FullName & ' - ' & User().Email"
+        },
+        {
+          "type": "RoleBasedNavigation",
+          "roles": {
+            "AYH Staff": {
+              "buttons": [
+                "Submit New Request",
+                "My Requests",
+                "Request Status"
+              ],
+              "color": "#0078d4"
+            },
+            "AYH Department Agent": {
+              "buttons": [
+                "Submit New Request",
+                "My Requests",
+                "Process Requests",
+                "Department Queue"
+              ],
+              "color": "#107c10"
+            },
+            "AYH Department Manager": {
+              "buttons": [
+                "Submit New Request",
+                "My Requests",
+                "Process Requests",
+                "Department Queue",
+                "Approve Requests",
+                "Department Reports"
+              ],
+              "color": "#ff8c00"
+            },
+            "AYH Hospital Operations Director": {
+              "buttons": [
+                "Submit New Request",
+                "My Requests",
+                "Process Requests",
+                "Department Queue",
+                "Approve Requests",
+                "Director Approvals ($5K+)",
+                "Executive Dashboard",
+                "Hospital Reports"
+              ],
+              "color": "#d13438"
+            }
+          }
+        },
+        {
+          "type": "QuickStats",
+          "metrics": [
+            {
+              "label": "Open Requests",
+              "formula": "CountRows(Filter('Service Requests', 'Status Value' = 'Open'))",
+              "color": "#0078d4"
+            },
+            {
+              "label": "Pending Director Approval",
+              "formula": "CountRows(Filter('Service Requests', 'Status Value' = 'Pending Director Approval' && 'Estimated Cost' > 5000))",
+              "color": "#d13438"
+            },
+            {
+              "label": "My Pending Items",
+              "formula": "CountRows(Filter('Request Assignments', 'Assigned To' = User().Email && Status = 'Active'))",
+              "color": "#107c10"
+            }
+          ]
+        }
+      ]
+    },
+    "SubmitRequestScreen": {
+      "title": "Submit New Service Request",
+      "description": "Form for submitting new service requests with automatic director approval routing for >$5,000",
+      "dataSources": [
+        "'Service Requests'",
+        "'Departments'",
+        "'SLA Policies'"
+      ],
+      "components": [
+        {
+          "type": "Form",
+          "dataSource": "'Service Requests'",
+          "mode": "New",
+          "fields": [
+            {
+              "name": "Title",
+              "type": "Text",
+              "required": true,
+              "placeholder": "Brief description of service request"
+            },
+            {
+              "name": "Description",
+              "type": "TextArea",
+              "required": true,
+              "placeholder": "Detailed description of request, including business justification"
+            },
+            {
+              "name": "Department",
+              "type": "Dropdown",
+              "required": true,
+              "items": "Departments",
+              "displayField": "Name"
+            },
+            {
+              "name": "Category",
+              "type": "Dropdown",
+              "required": true,
+              "choices": [
+                "IT Services",
+                "Medical Equipment",
+                "Facilities & Maintenance",
+                "Administrative Services",
+                "Clinical Services",
+                "Emergency Request"
+              ]
+            },
+            {
+              "name": "Priority",
+              "type": "Dropdown",
+              "required": true,
+              "choices": [
+                "Low",
+                "Normal",
+                "High",
+                "Critical"
+              ]
+            },
+            {
+              "name": "Estimated Cost",
+              "type": "Number",
+              "format": "Currency",
+              "required": true,
+              "validation": "Value >= 0"
+            },
+            {
+              "name": "Business Hours",
+              "type": "Toggle",
+              "label": "Required during business hours only",
+              "default": true
+            },
+            {
+              "name": "Requested Completion Date",
+              "type": "DatePicker",
+              "required": true,
+              "validation": "Value >= Today()"
+            },
+            {
+              "name": "Attachments",
+              "type": "FileUpload",
+              "multiple": true,
+              "acceptedTypes": [".pdf", ".doc", ".docx", ".xlsx", ".jpg", ".png"]
+            }
+          ],
+          "onSubmit": {
+            "actions": [
+              {
+                "type": "SetFormValues",
+                "values": {
+                  "Status": "Open",
+                  "Requested By": "User().Email",
+                  "Created Date": "Now()",
+                  "Request Number": "\"REQ-\" & Text(Now(), \"yyyymmdd\") & \"-\" & Text(Rand()*1000, \"000\")"
+                }
+              },
+              {
+                "type": "ConditionalWorkflow",
+                "condition": "Estimated_Cost_Value > 5000",
+                "trueAction": {
+                  "type": "SetStatus",
+                  "status": "Pending Director Approval",
+                  "assignTo": "LookUp(Users, 'Security Role' = 'AYH Hospital Operations Director').Email",
+                  "notification": "High-cost request requiring director approval"
+                },
+                "falseAction": {
+                  "type": "SetStatus",
+                  "status": "In Review",
+                  "assignTo": "LookUp(Users, 'Department' = Department_Value && 'Security Role' in ['AYH Department Agent', 'AYH Department Manager']).Email"
+                }
+              },
+              {
+                "type": "CreateStatusHistory",
+                "record": {
+                  "Request": "ThisItem",
+                  "Status": "Submitted",
+                  "Comments": "Request submitted by " & User().FullName,
+                  "Changed By": "User().Email",
+                  "Change Date": "Now()"
+                }
+              },
+              {
+                "type": "Navigate",
+                "screen": "RequestDetailsScreen",
+                "parameters": "ThisItem"
+              }
+            ]
+          }
+        },
+        {
+          "type": "InfoBox",
+          "title": "Director Approval Required",
+          "message": "Requests over $5,000 require Hospital Operations Director approval",
+          "visible": "Estimated_Cost_Value > 5000",
+          "color": "#d13438"
+        }
+      ]
+    },
+    "DirectorApprovalScreen": {
+      "title": "Director Approval - High Cost Requests",
+      "description": "Hospital Operations Director approval screen for requests >$5,000",
+      "security": "User().SecurityRole = 'AYH Hospital Operations Director'",
+      "dataSources": [
+        "'Service Requests'",
+        "'Request Assignments'",
+        "'Status History'"
+      ],
+      "components": [
+        {
+          "type": "Gallery",
+          "dataSource": "Filter('Service Requests', 'Status Value' = 'Pending Director Approval' && 'Estimated Cost' > 5000)",
+          "layout": "List",
+          "template": {
+            "title": "ThisItem.'Request Number' & ' - ' & ThisItem.Title",
+            "subtitle": "Requested by: ' & ThisItem.'Requested By' & ' | Amount: ' & Text(ThisItem.'Estimated Cost', '$#,##0.00')",
+            "description": "ThisItem.Description",
+            "badge": {
+              "text": "ThisItem.Priority",
+              "color": "Switch(ThisItem.Priority, 'Critical', '#d13438', 'High', '#ff8c00', 'Normal', '#107c10', '#605e5c')"
+            },
+            "actions": [
+              {
+                "text": "Review Details",
+                "action": "Navigate(RequestDetailsScreen, ThisItem)"
+              },
+              {
+                "text": "Quick Approve",
+                "action": "QuickApprove(ThisItem)",
+                "color": "#107c10"
+              },
+              {
+                "text": "Request More Info",
+                "action": "RequestInfo(ThisItem)",
+                "color": "#ff8c00"
+              },
+              {
+                "text": "Reject",
+                "action": "RejectRequest(ThisItem)",
+                "color": "#d13438"
+              }
+            ]
+          }
+        },
+        {
+          "type": "ApprovalActions",
+          "quickActions": [
+            {
+              "name": "QuickApprove",
+              "formula": "UpdateIf('Service Requests', ID = Selected.ID, {Status: 'Approved - Director', 'Approved By': User().Email, 'Approval Date': Now()}); CreateRecord('Status History', {Request: Selected, Status: 'Approved by Director', Comments: 'Quick approved by ' & User().FullName, 'Changed By': User().Email})",
+              "confirmation": "Are you sure you want to approve this $' & Text(Selected.'Estimated Cost', '#,##0.00') & ' request?"
+            },
+            {
+              "name": "RequestInfo",
+              "parameters": ["Comments"],
+              "formula": "UpdateIf('Service Requests', ID = Selected.ID, {Status: 'More Information Required'}); CreateRecord('Comments', {Request: Selected, 'Comment Type': 'Director Request', Comments: Comments_Param, 'Created By': User().Email})"
+            },
+            {
+              "name": "RejectRequest",
+              "parameters": ["Reason"],
+              "formula": "UpdateIf('Service Requests', ID = Selected.ID, {Status: 'Rejected - Director', 'Rejected By': User().Email, 'Rejection Reason': Reason_Param}); CreateRecord('Status History', {Request: Selected, Status: 'Rejected by Director', Comments: Reason_Param, 'Changed By': User().Email})"
+            }
+          ]
+        },
+        {
+          "type": "ExecutiveSummary",
+          "metrics": [
+            {
+              "title": "Pending Director Approvals",
+              "value": "CountRows(Filter('Service Requests', 'Status Value' = 'Pending Director Approval'))",
+              "trend": "Week over week comparison"
+            },
+            {
+              "title": "Total Value Pending",
+              "value": "Sum(Filter('Service Requests', 'Status Value' = 'Pending Director Approval'), 'Estimated Cost')",
+              "format": "Currency"
+            },
+            {
+              "title": "Average Approval Time",
+              "value": "Average time from submission to director approval",
+              "format": "Duration"
+            }
+          ]
+        }
+      ]
+    },
+    "RequestDetailsScreen": {
+      "title": "Request Details",
+      "description": "Detailed view of service request with full workflow history",
+      "parameters": ["RequestItem"],
+      "dataSources": [
+        "'Service Requests'",
+        "'Comments'",
+        "'Status History'",
+        "'Request Assignments'"
+      ],
+      "components": [
+        {
+          "type": "RequestHeader",
+          "request": "RequestItem",
+          "fields": [
+            "Request Number",
+            "Title",
+            "Status",
+            "Priority",
+            "Estimated Cost",
+            "Requested By",
+            "Department",
+            "Created Date"
+          ]
+        },
+        {
+          "type": "WorkflowTracker",
+          "steps": [
+            {
+              "title": "Submitted",
+              "status": "completed",
+              "icon": "Add",
+              "details": "RequestItem.'Created Date' & ' by ' & RequestItem.'Requested By'"
+            },
+            {
+              "title": "Department Review",
+              "status": "Switch(RequestItem.'Status Value', 'Open', 'pending', 'In Review', 'current', 'completed')",
+              "icon": "People"
+            },
+            {
+              "title": "Director Approval",
+              "status": "If(RequestItem.'Estimated Cost' > 5000, Switch(RequestItem.'Status Value', 'Pending Director Approval', 'current', 'Approved - Director', 'completed', 'pending'), 'skipped')",
+              "icon": "Checkmark",
+              "visible": "RequestItem.'Estimated Cost' > 5000"
+            },
+            {
+              "title": "Implementation",
+              "status": "Switch(RequestItem.'Status Value', 'In Progress', 'current', 'Completed', 'completed', 'pending')",
+              "icon": "Settings"
+            },
+            {
+              "title": "Completed",
+              "status": "If(RequestItem.'Status Value' = 'Completed', 'completed', 'pending')",
+              "icon": "CompletedSolid"
+            }
+          ]
+        },
+        {
+          "type": "TabControl",
+          "tabs": [
+            {
+              "title": "Details",
+              "content": {
+                "type": "DisplayForm",
+                "item": "RequestItem",
+                "fields": [
+                  "Description",
+                  "Category",
+                  "Business Hours",
+                  "Requested Completion Date",
+                  "Business Justification",
+                  "Attachments"
+                ]
+              }
+            },
+            {
+              "title": "Comments",
+              "content": {
+                "type": "Gallery",
+                "dataSource": "Filter(Comments, Request = RequestItem.ID)",
+                "template": "CommentTemplate"
+              }
+            },
+            {
+              "title": "History",
+              "content": {
+                "type": "Gallery",
+                "dataSource": "Filter('Status History', Request = RequestItem.ID)",
+                "sortBy": "'Change Date' Descending",
+                "template": "HistoryTemplate"
+              }
+            },
+            {
+              "title": "Assignments",
+              "content": {
+                "type": "Gallery",
+                "dataSource": "Filter('Request Assignments', Request = RequestItem.ID)",
+                "template": "AssignmentTemplate"
+              }
+            }
+          ]
+        },
+        {
+          "type": "ActionBar",
+          "actions": [
+            {
+              "text": "Add Comment",
+              "visible": "true",
+              "action": "Navigate(AddCommentScreen, RequestItem)"
+            },
+            {
+              "text": "Assign to Team Member",
+              "visible": "User().SecurityRole in ['AYH Department Manager', 'AYH Hospital Operations Director']",
+              "action": "Navigate(AssignRequestScreen, RequestItem)"
+            },
+            {
+              "text": "Update Status",
+              "visible": "User().SecurityRole in ['AYH Department Agent', 'AYH Department Manager', 'AYH Hospital Operations Director']",
+              "action": "Navigate(UpdateStatusScreen, RequestItem)"
+            },
+            {
+              "text": "Director Approve ($' & Text(RequestItem.'Estimated Cost', '#,##0') & ')",
+              "visible": "User().SecurityRole = 'AYH Hospital Operations Director' && RequestItem.'Status Value' = 'Pending Director Approval'",
+              "action": "DirectorApprove(RequestItem)",
+              "color": "#107c10"
+            }
+          ]
+        }
+      ]
+    },
+    "DashboardScreen": {
+      "title": "Executive Dashboard",
+      "description": "Hospital Operations Director executive dashboard with KPIs and analytics",
+      "security": "User().SecurityRole = 'AYH Hospital Operations Director'",
+      "components": [
+        {
+          "type": "KPICards",
+          "cards": [
+            {
+              "title": "Total Active Requests",
+              "value": "CountRows(Filter('Service Requests', 'Status Value' in ['Open', 'In Review', 'Pending Director Approval', 'In Progress']))",
+              "change": "Week over week change",
+              "color": "#0078d4"
+            },
+            {
+              "title": "Director Approvals Pending",
+              "value": "CountRows(Filter('Service Requests', 'Status Value' = 'Pending Director Approval'))",
+              "urgency": "Based on request age",
+              "color": "#d13438"
+            },
+            {
+              "title": "High-Cost Requests (>$5K)",
+              "value": "CountRows(Filter('Service Requests', 'Estimated Cost' > 5000 && 'Status Value' <> 'Completed'))",
+              "totalValue": "Sum(Filter('Service Requests', 'Estimated Cost' > 5000 && 'Status Value' <> 'Completed'), 'Estimated Cost')",
+              "color": "#ff8c00"
+            },
+            {
+              "title": "Average Resolution Time",
+              "value": "Average days from submission to completion",
+              "target": "5 days",
+              "color": "#107c10"
+            }
+          ]
+        },
+        {
+          "type": "ChartSection",
+          "charts": [
+            {
+              "title": "Requests by Department",
+              "type": "DonutChart",
+              "dataSource": "'Service Requests'",
+              "categoryField": "Department",
+              "valueField": "Count"
+            },
+            {
+              "title": "Monthly Request Trends",
+              "type": "LineChart",
+              "dataSource": "'Service Requests'",
+              "xAxis": "Created Date (Month)",
+              "yAxis": "Count",
+              "series": "Status"
+            },
+            {
+              "title": "Cost Distribution",
+              "type": "BarChart",
+              "dataSource": "Filter('Service Requests', 'Estimated Cost' > 0)",
+              "categories": ["<$1K", "$1K-$5K", "$5K-$10K", ">$10K"],
+              "valueField": "Estimated Cost"
+            }
+          ]
+        },
+        {
+          "type": "RecentActivity",
+          "title": "Recent Director Actions",
+          "dataSource": "Filter('Status History', 'Changed By' = User().Email)",
+          "limit": 10,
+          "template": "ActivityTemplate"
+        }
+      ]
+    }
+  },
+  "dataConnections": [
+    {
+      "name": "AYH Service Requests",
+      "type": "Dataverse",
+      "table": "new_ayh_request"
+    },
+    {
+      "name": "Departments",
+      "type": "Dataverse",
+      "table": "new_ayh_department"
+    },
+    {
+      "name": "Comments",
+      "type": "Dataverse",
+      "table": "new_ayh_comment"
+    },
+    {
+      "name": "Request Assignments",
+      "type": "Dataverse",
+      "table": "new_ayh_requestassignment"
+    },
+    {
+      "name": "Status History",
+      "type": "Dataverse",
+      "table": "new_ayh_statushistory"
+    },
+    {
+      "name": "SLA Policies",
+      "type": "Dataverse",
+      "table": "new_ayh_slapolicy"
+    }
+  ],
+  "businessLogic": {
+    "directorApprovalWorkflow": {
+      "trigger": "Estimated Cost > 5000",
+      "actions": [
+        "Set Status = 'Pending Director Approval'",
+        "Assign to Hospital Operations Director role",
+        "Create notification",
+        "Log status change"
+      ]
+    },
+    "roleBasedSecurity": {
+      "AYH Staff": ["Submit", "View Own"],
+      "AYH Department Agent": ["Submit", "View Own", "Process Department"],
+      "AYH Department Manager": ["Submit", "View Own", "Process Department", "Approve Department"],
+      "AYH Hospital Operations Director": ["All permissions", "Director Approval", "Executive Dashboard"]
+    },
+    "notifications": {
+      "directorApprovalRequired": "Email to director when >$5K request submitted",
+      "requestAssigned": "Email to assignee when request assigned",
+      "statusChanged": "Email to requester when status changes",
+      "approvalComplete": "Email to requester when director approves/rejects"
+    }
+  }
+}
