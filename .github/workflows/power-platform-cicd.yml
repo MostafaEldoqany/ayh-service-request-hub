@@ -67,14 +67,13 @@ jobs:
     - name: Setup Power Platform Build Tools
       uses: microsoft/powerplatform-actions/actions-install@v1
 
-    - name: Authenticate to Development Environment
+    - name: Authenticate to Power Platform via GitHub
       if: ${{ secrets.POWER_PLATFORM_ENVIRONMENT_URL_DEV != '' }}
       uses: microsoft/powerplatform-actions/auth@v1
       with:
         environment-url: ${{ secrets.POWER_PLATFORM_ENVIRONMENT_URL_DEV }}
-        app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
-        client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
-        tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID }}
+        user-name: ${{ secrets.POWER_PLATFORM_USERNAME }}
+        password-secret: ${{ secrets.POWER_PLATFORM_PASSWORD }}
 
     - name: Export Solution (if exists)
       if: ${{ secrets.POWER_PLATFORM_ENVIRONMENT_URL_DEV != '' }}
